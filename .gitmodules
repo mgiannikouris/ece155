@@ -1,0 +1,3 @@
+[submodule "lec002_s16_slides/mtheme"]
+	path = lec002_s16_slides/mtheme
+	url = https://github.com/matze/mtheme
