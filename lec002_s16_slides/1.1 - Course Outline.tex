@@ -1,0 +1,123 @@
+\documentclass{beamer}
+\usetheme{metropolis}           % Use metropolis theme
+\metroset{numbering=fraction}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,shapes.geometric}
+\usepackage{float}
+\usepackage{makecell}
+\usepackage{fancyvrb}
+\usepackage[export]{adjustbox}
+\usepackage{caption}
+\title{Lecture 1.1 \\ ECE 155 Course Outline}
+\date{\today}
+\author{Michael Giannikouris}
+\institute{Department of Electrical and Computer Engineering}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamersize{text margin left=12pt,text margin right=12pt}
+\newcommand{\putat}[3]{\begin{picture}(0,0)(0,0)\put(#1,#2){#3}\end{picture}} % just a shorthand
+
+\begin{document}
+
+  \maketitle
+  \section{Course Syllabus}
+  
+  %Course Objectives
+  \begin{frame}{Course Objectives}
+    \begin{itemize}
+    \begin{small}
+      \item describe the major components of common embedded systems
+      \item program an event-driven embedded system (Android) \includegraphics[width=1em,height=1em]{img/android_peeking}
+      \item compare and contrast different software development life cycles and situations in which they work well
+      \item describe the engineering design process, planning and estimation, reviews, simulation, and software maintenance
+      \item collect and document requirements for, and design, a simple software system
+      \item use modern software development tools and concepts, including integrated development environments (IDEs), version control,  UML, refactoring, and unit tests
+	\end{small}
+    \end{itemize}
+  \end{frame}
+  
+	%Course Schedule
+	\begin{frame}{Course Schedule}
+		\begin{center}
+			\begin{tabular}{l l l l}
+				Regular Lectures & LEC002 & Tu 08:30-09:50 & RCH 302 	\\
+								 & 		  & Th 08:30-09:50 & RCH 302 	\\
+				\hline
+				Make-up Lectures*& LEC002 & Fr 11:30-12:20 & RCH 302 	\\
+				\hline			
+				Tutorials 		 & TUT104 & Th 14:30-15:20 & DWE 3522A 	\\
+						  		 & TUT105 & Tu 14:30-15:20 & RCH 309   	\\
+						  		 & TUT106 & We 14:30-15:20 & RCH 204   	\\
+				\hline			
+				Labs** 	  		 & LAB204 & We 13:30-16:20 & E2-3344	\\
+								 & LAB205 & Th 13:30-16:20 & E2-3344	\\
+								 & LAB206 & Tu 13:30-16:20 & E2-3344	\\
+				\hline
+			\end{tabular}
+		\end{center}		
+		Midterm: Friday June 17, 8:30am-10:20am			\\
+		*    Make-up Lecture Dates: TBD					\\
+		**   Labs are held on weeks 1, 3, 5, 7, 9, 11 	\\
+	\end{frame}
+	
+	%Course Staff
+	\begin{frame}{Course Staff}
+		\begin{center}
+			\begin{tabular}{l l l}
+				Instructor & Scott Chen 			& EIT-4006 \\
+				Instructor & Michael Giannikouris 	& EIT-4007 \\
+				\hline
+				Lab Instructor & Sanjay Singh & ??? \\
+				\hline			
+				TA \\
+				TA \\
+				TA \\
+				TA \\
+				TA \\
+				TA \\
+				TA \\
+				TA \\
+				TA \\
+				\hline
+			\end{tabular}
+		\end{center}
+	\end{frame}
+	
+	%Grading Scheme
+	\begin{frame}{Course Grading}
+		
+	\end{frame}
+	
+	%Course Labs
+	\begin{frame}{Course Labs}
+		
+	\end{frame}
+  
+	%Course Policies
+	\begin{frame}{Course Policies}
+		\begin{itemize}
+			\setlength\itemsep{1em}
+			\item Collaboration \& Plagiarism
+			\item Late Submissions
+			\item Re-marking
+			\item Extra Credit
+			\item Attendance \& Illness
+		\end{itemize}
+	\end{frame}
+	
+	%University Policies
+	\begin{frame}{University Policies}
+		Some University policies you will want to be familiar with:
+		\vspace{1em}
+		\begin{itemize}
+			\setlength\itemsep{0.75em}
+			\item \normalsize{Academic Integrity} \tiny{(www.uwaterloo.ca/academicintegrity/)}
+			\item \normalsize{Grievance} \tiny{(adm.uwaterloo.ca/infosec/Policies/policy70.htm)}
+			\item \normalsize{Discipline} \tiny{(www.adm.uwaterloo.ca/infosec/Policies/policy71.htm)}
+			\item \normalsize{Penalties} \tiny{(www.adm.uwaterloo.ca/infosec/guidelines/penaltyguidelines.htm)}
+			\item \normalsize{Appeals} \tiny{(www.adm.uwaterloo.ca/infosec/Policies/policy72.htm)}
+			\item \normalsize{Privacy} \tiny{(https://uwaterloo.ca/secretariat/policies-procedures-guidelines/policy-19)}
+			\item \normalsize{Special Needs} \tiny{(AccessAbility Services, Needles Hall, Room 1132)}
+		\end{itemize}
+	\end{frame}  
+
+\end{document}

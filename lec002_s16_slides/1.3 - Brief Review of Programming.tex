@@ -8,13 +8,14 @@
 \usepackage{fancyvrb}
 \usepackage[export]{adjustbox}
 \usepackage{caption}
-\title{Lecture 1.2 - Introduction to Object-Oriented Programming}
+\title{Lecture 1.3 \\ Evolution of Programming}
 \date{\today}
 \author{Michael Giannikouris}
 \institute{Department of Electrical and Computer Engineering}
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 \setbeamersize{text margin left=12pt,text margin right=12pt}
 \newcommand{\putat}[3]{\begin{picture}(0,0)(0,0)\put(#1,#2){#3}\end{picture}} % just a shorthand
+
 \begin{document}
 \maketitle
 
@@ -35,7 +36,7 @@
 		\end{itemize}
 		
 		\item[Procedural]
-		Derived from structured programming. Program is composed of a set of procedure calls (functions) and data structures (variables).
+		Derived from structured programming. Program is composed of a set of procedure calls (functions) and data structures (variables). We have scope (e.g. local variables in a function).
 
 	\end{description}
 \end{frame}  
@@ -50,6 +51,8 @@
 		Program flow is driven by "events". In an embedded system, events often come from the environment (e.g. sensors) or timers.
 	\end{description}
 \end{frame}  
+
+\section{Procedural vs. Object-Oriented Programming}
 
 \begin{frame}[fragile]{Procedural vs. Object-Oriented Programming}
 
@@ -161,7 +164,7 @@ int main(void) {
 
 \begin{Verbatim}[fontsize=\tiny]
 class Circle {
-  private double pi = 3.14159;
+  private final double pi = 3.14159;
   private double radius;
   
   public Circle(double r) {
@@ -186,91 +189,6 @@ public class Main {
 \end{Verbatim}	
 
 \end{tabular}
-
-\end{frame}
-
-\begin{frame}{Characteristics of OOP}
-	\begin{description}
-		\item[Encapsulation]
-		Data and methods that operate on the data are stored together in a single container. Most OOP languages (including Java) call this container a "class".
-		
-		\item[Inheritance]
-		Classes can build on (extend) other classes, creating a class hierarchy. A "child" class inherits the data and methods of the "parent" class, can add new, more specific data and methods.
-		
-		In Java, we usually use the terms "superclass" and "subclass".
-		
-		\item[Polymorphism]
-		For example, a subclass can override (substitute) a method of the superclass with one that is more suitable to the subclass.
-		
-	\end{description}
-\end{frame}
-
-\begin{frame}{Encapsulation}
-Describe encapsulation, visibility, etc.
-\end{frame}
-
-\begin{frame}{Inheritance}
-Describe superclass and subclass, abstract classes, what is inherited and what's not in Java
-\end{frame}
-
-\begin{frame}{Polymorphism}
-Describe method overloading, overriding, MAYBE touch on generics briefly
-\end{frame}
-
-\begin{frame}[fragile]{Objects}
-	An object is an "instance" of a class. Recall our circle example:
-	
-	\centering
-\begin{tabular}{@{}m{0.5\textwidth} m{0.5\textwidth}@{}}
-
-\begin{Verbatim}[fontsize=\tiny]
-class Circle {
-  private double pi = 3.14159;
-  private double radius;
-  
-  public Circle(double r) {
-    radius = r;
-  }
-  
-  public double area() {
-    return pi * radius * radius;
-  }
-  
-  public double circum() {
-    return 2 * pi * radius;
-  }
-}
-
-public class Main {
-  public static void main(String[] args){
-    Circle circle = new Circle(1.6);
-    double area = circle.area();
-    double circumference = circle.circum();
-  }
-}
-\end{Verbatim}
-
-\note Discuss why we have a Main class (remember everything is a class)
-\note Discuss why the method main() is static (or at least do it later)
-\note Discuss visibility
-
-&
-
-XXX need to put some stuff here describing how we instantiated the class \\
-Analogy of a class being sort of like a custom typedef in C (be careful to lay groundwork for primatives first)
-
-\end{tabular}
-	
-\end{frame}
-
-\begin{frame}{Creating objects}
-\begin{itemize}
-\item A constructor is a method that each class invokes when an instance is created
-\item Constructors can be overloaded (we can have more than one for a given class)
-\end{itemize}
-\end{frame}
-
-\begin{frame}{}
 
 \end{frame}
 
