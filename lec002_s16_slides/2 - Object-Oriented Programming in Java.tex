@@ -9,9 +9,9 @@
 \usepackage{listings}
 \usepackage[export]{adjustbox}
 \usepackage{caption}
-\title{Lecture 2.1 \\ Introduction to Object-Oriented Programming (OOP)}
+\title{Lecture 2 \\ Introduction to Object-Oriented Programming (OOP) and Java}
 \date{\today}
-\author{Michael Giannikouris}
+\author{Patrick Lam \\ Jeff Zarnett \\ Michael Giannikouris}
 \institute{Department of Electrical and Computer Engineering}
 \setbeamertemplate{caption}{\raggedright\insertcaption\par}
 \setbeamersize{text margin left=12pt,text margin right=12pt}
@@ -66,11 +66,6 @@
 public class BankAccount {
   public double balance;
   
-  // constructor
-  public BankAccount(double opening_balance) {
-    balance = opening_balance;
-  }
-  
   // deposit an amount
   public void deposit(double amount) {
     balance += amount;
@@ -116,11 +111,6 @@ are \textbf{bundled} into a single container, the BankAccount \textbf{class}. \\
 \begin{Verbatim}[fontsize=\tiny]
 public class BankAccount {
   public double balance;
-  
-  // constructor
-  public BankAccount(double opening_balance) {
-    balance = opening_balance;
-  }
   
   // deposit an amount
   public void deposit(double amount) {
@@ -192,11 +182,6 @@ private & Y & N & N & N \\
 public class BankAccount {
   private double balance;
   
-  // constructor
-  public BankAccount(double opening_balance) {
-    balance = opening_balance;
-  }
-  
   // deposit an amount
   public void deposit(double amount) {
     balance += amount;
@@ -212,6 +197,12 @@ public class BankAccount {
       return true;
     }
   }
+  
+  // view balance
+  public double view_balance() {
+    return balance;  
+  }
+}
 \end{Verbatim}
 
 &&
@@ -221,6 +212,8 @@ public class BankAccount {
 Visibility is very important when designing a class.\\
 \vspace{0.5em}
 For example, we probably don't want users to be able to directly change \textbf{balance}, so we'll make it \textbf{private}. \\
+\vspace{0.5em}
+If we're going to hide \textbf{balance}, we should make a public function to view the balance. In this way, we've made balance \textbf{read-only}. \\
 \vspace{0.5em}
 In general, use the most restrictive access level possible. \\
 \end{footnotesize}
@@ -258,11 +251,6 @@ In general, use the most restrictive access level possible. \\
 public class BankAccount {
   protected double balance;
   
-  // constructor
-  public BankAccount(double opening_balance) {
-    balance = opening_balance;
-  }
-  
   // deposit an amount
   public void deposit(double amount) {
     balance += amount;
@@ -277,6 +265,11 @@ public class BankAccount {
       balance -= amount;
       return true;
     }
+  }
+  
+  // view balance
+  public double view_balance() {
+    return balance;  
   }
 }
 \end{Verbatim}
@@ -293,6 +286,11 @@ class SavingsAccount extends BankAccount {
   }
 }
 \end{Verbatim}
+
+
+\vspace{1.5em}
+\raggedright
+Anyone notice a slight change in \textbf{BankAccount}?
 
 \end{splitslide}
 \end{frame}
@@ -393,11 +391,6 @@ There are certainly times where we want classes to take on behaviours or charact
 public class BankAccount {
   protected double balance;
   
-  // constructor
-  public BankAccount(double opening_balance) {
-    balance = opening_balance;
-  }
-  
   // deposit an amount
   public void deposit(double amount) {
     balance += amount;
@@ -412,6 +405,11 @@ public class BankAccount {
       balance -= amount;
       return true;
     }
+  }
+  
+  // view balance
+  public double view_balance() {
+    return balance;  
   }
 }
 \end{Verbatim}
@@ -449,27 +447,190 @@ class HighInterestAcct extends BankAccount {
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+\section{Working with Java Classes}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Objects
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Objects}
 Classes aren't any good unless we can use them. \\
+\vspace{0.5em}
 An object is an \textbf{instance} of a class.   \\
+\vspace{0.5em}
 Like variables, we can make as many instances of as many classes as memory allows. \\
 	
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Working with Java Classes}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Creating Objects
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Creating objects}
+\begin{frame}[fragile]{Creating objects}
+We create an object in Java using the \textbf{new} keyword. \\
+\vspace{0.5em}
+\begin{Verbatim}
+BankAccount my_account = new BankAccount();
+\end{Verbatim}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Memory Management
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Memory Management}
+When you create an object in Java using the \textbf{new} keyword, two awesome things happen: \\
 \begin{itemize}
-\item A \textbf{constructor} is a method that each class invokes when an instance is created
-\item Constructors can be overloaded (we can have more than one for a given class)
+\item[1] Java \textbf{automatically allocates memory} for the object (no calls to malloc()).
+\item[2] Java \textbf{calls} the class' \textbf{constructor} to initialize the state of the object. \\
 \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Constructors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Constructors}
+\begin{splitslide}
+
+\centering
+\begin{Verbatim}[fontsize=\tiny]
+public class BankAccount {
+  protected double balance;
+  
+  // constructor
+  public BankAccount(double opening_balance) {
+    balance = opening_balance;
+  }  
+
+  // deposit an amount
+  public void deposit(double amount) {
+    balance += amount;
+  }
+  
+  // withdraw an amount
+  public boolean withdraw(double amount) {
+    if(balance < amount) {
+      return false;
+    }
+    else {
+      balance -= amount;
+      return true;
+    }
+  }
+  
+  // view balance
+  public double view_balance() {
+    return balance;  
+  }
+}
+\end{Verbatim}
+
+&&
+
+\raggedright
+\begin{footnotesize}
+In Java, a constructor is a method inside a class that has, simply, the name of the class (and no return type). \\
+\vspace{0.5em}
+A constructor may take none, one, or may arguments. \\
+\vspace{0.5em}
+A class can have multiple (overloaded) constructors. \\
+\vspace{0.5em}
+A subclass can override the constructor(s) of the superclass. \\
+\vspace{0.5em}
+If you do not write a constructor, Java will call a default constructor, initializing everything to zero, false, null, etc. \\
+\end{footnotesize}
+
+\end{splitslide}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Memory Management
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Memory Management}
+To further "free" you from managing memory, Java uses garbage collection to free up memory that is no longer used. \\
+\vspace{0.5em}
+Java keeps track of objects that are in use. When an object is no longer being referred to, its memory is automatically freed. \\
+\vspace{0.5em}
+The inner workings of garbage collection are beyond this course....just rest easy knowing you don't really have to worry about memory. \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Java: Object Oriented
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Java: Object Oriented}
+Java is an object-oriented programming language: \\
+\begin{itemize}
+\item Every piece of data is encapsulated in an object
+\item Every executable statement is in a method
+\item Every object is an instance of a class
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Putting it all Together: An OO Program
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Putting it all Together}
+\centering
+\begin{Verbatim}[fontsize=\tiny]
+public class Main {
+  public static void main(String[] argv) {
+    BankAccount my_account = new BankAccount(100.00);
+      
+    my_account.deposit(22.15);
+    my_account.withdraw(12.53);   // returns true
+    my_account.view_balance();    // returns 109.62
+    my_account.withdraw(1000000); // returns false (glad we chose to hide balance?)
+  }
+}
+\end{Verbatim}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Java Types}
+
+\begin{frame}{Java Types}
+Java has eight primitive (basic) types. Every variable will be one of the primitive types or a reference to a Java object. \\
+\vspace{0.5em}
+A reference may be \texttt{null} or contain the address of an instance of an object. The eight basic types are:
+
+\begin{enumerate}
+\item \texttt{boolean} -- can be either \texttt{true} or \texttt{false}
+\item \texttt{char} -- single unicode character (such as \texttt{'A'})
+\item \texttt{byte} -- 8-bit signed integer
+\item \texttt{short} -- 16-bit signed integer
+\item \texttt{int} -- 32-bit signed integer
+\item \texttt{long} -- 64-bit signed integer
+\item \texttt{float} -- 32-bit signed floating point number
+\item \texttt{double} -- 64-bit signed floating point number
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Special Values for Floating Point Types}
+Note that in addition to their normal values, the floating point types have some extra weird values: \\
+\vspace{1em}
+\begin{itemize}
+\item \texttt{NEGATIVE\_INFINITY}
+\item \texttt{POSITIVE\_INFINITY} 
+\item \texttt{NaN} (Not a Number)
+\end{itemize}
+\vspace{1em}
+These special values result from operations that go out of range or make no mathematical sense. \\
 \end{frame}
 
 \end{document}
