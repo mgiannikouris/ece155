@@ -464,6 +464,8 @@ Like variables, we can make as many instances of as many classes as memory allow
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Creating Objects
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -602,8 +604,14 @@ public class Main {
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+
 \section{Java Types}
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Java Types
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Java Types}
 Java has eight primitive (basic) types. Every variable will be one of the primitive types or a reference to a Java object. \\
 \vspace{0.5em}
@@ -620,7 +628,13 @@ A reference may be \texttt{null} or contain the address of an instance of an obj
 \item \texttt{double} -- 64-bit signed floating point number
 \end{enumerate}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Special Values for Floating Point Types
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Special Values for Floating Point Types}
 Note that in addition to their normal values, the floating point types have some extra weird values: \\
 \vspace{1em}
@@ -632,5 +646,188 @@ Note that in addition to their normal values, the floating point types have some
 \vspace{1em}
 These special values result from operations that go out of range or make no mathematical sense. \\
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Strings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Strings}
+\texttt{String} is a \textbf{class} (reference to a character array), \textbf{not} a primitive. \\
+\vspace{0.5em}
+\texttt{String} is \textbf{immutable}. Once created, a \texttt{String} cannot change. \\
+\vspace{0.5em}
+If you call a \texttt{String} method that modifies the string, a new \texttt{String} object is returned (the existing one does not change):\\
+\vspace{1em}
+
+\texttt{String string1 = "Hello World!";} \\
+\texttt{String string2 = string1.replaceAll('?', '!')}, \\
+\vspace{1em}
+
+string1 still contains "Hello World!" \\
+string2 contains "Hello World?"
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Strings
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Strings and the == Operator}
+The equality operator \texttt{==} can behave strangely when used on \texttt{String}. \\
+\vspace{1em}
+Use the \texttt{equals} method: \\
+\texttt{if(string1.equals(string2)) \{ ... \} }
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wrapper Classes
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Wrapper Classes for Primitive Types}
+Java also provides wrapper classes for the primitive types. \\
+\vspace{0.5em}
+Work with them as if they were regular objects. \\
+\vspace{0.5em}
+The wrapper class for \texttt{int}: \texttt{Integer} \\ 
+\vspace{0.5em}
+(Mostly, just capitalize the first letter). \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{Java Methods}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Java Methods
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Java Methods}
+\begin{verbatim}
+modifiers returnType methodName(param-list) {
+  T1 t; returnType r;
+  ...
+  return r;
+}
+\end{verbatim}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Imperative Constructs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Imperative Constructs}
+\begin{itemize}
+\item Assignment: {\tt x = y;}
+\item Math: {\tt i = j + k}. (This includes the operators like += etc.)
+\item Expressions: {\tt z > 10 || ((c == 0) \&\& (a == b))}
+\item If-Statements: {\tt if(cond) \{ \ldots~\} else if (cond2) \{ \ldots~\}  else  \{ \ldots~\} }
+\item For Loops: {\tt for (init; cond; expr2) \{ \ldots~\} }
+\item While Loops: {\tt while (cond) \{ \ldots~\} }
+\item Do-While Loops: {\tt do \{ \ldots~\} while (cond); }
+\item Switch-Case Statements: {\tt switch (v) \{ case N: \ldots; break; case M: \ldots; break; default: \ldots; break; \} }
+\item For-Each: {\tt for (Type t : c)}
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Arrays and Collections
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Arrays \& Collections}
+The simple array is created with the \texttt{[]} square brackets. \\
+\vspace{0.5em}
+Example: \texttt{int[] numbers = new int[10];} \\
+\vspace{0.5em}
+You can have null elements in an array (say, of Strings) without this affecting the array length. \\
+\vspace{0.5em}
+An array is technically an object so you can assign it where a generic \texttt{Object} is expected. \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Arrays
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Arrays}
+Multidimensional arrays are also allowed, but only for primitive types \\
+\vspace{0.5em}
+\texttt{int[][][]  coordinates = new int[5][10][2];}.  \\
+\vspace{0.5em}
+This is not a big restriction since you can just have an array of arrays. \\
+\vspace{0.5em}
+Unlike C\# though, you can't specify a rectangular array. \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Arrays
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Arrays}
+This is great, but like \texttt{String} an explicit array has a fixed size. \\
+\vspace{0.5em}
+Create a new, bigger one if you needed it and copy all the data to the bigger one...?  \\
+\vspace{0.5em}
+Allocate an array of capacity 999 when we aren't sure how many we'll need? \\
+\vspace{0.5em}
+Wouldn't it be nice if we had a dynamic collection? \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Java Collections
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Java Collections}
+In Java, we do, and they're called, \texttt{Collection}s. \\
+\vspace{0.5em}
+The most common one: the \texttt{List}.  \\
+\vspace{0.5em}
+The type List takes a parameter in angle brackets to tell you what this is a list of. \\
+\vspace{0.5em}
+Example: \texttt{List<String>}. \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lists
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Lists}
+Note that you can't call \texttt{new List<String>()} because no constructor exists for just plain \texttt{List}. \\
+\vspace{0.5em}
+Be specific about what kind of list you want to have, such as \texttt{ArrayList} (a very common one) or \texttt{LinkedList}. \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Three Basic Collections
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Three Basic Collections}
+Three basic collections exist: \\
+\vspace{0.5em}
+\begin{enumerate}
+	\item List
+	\item Map (in a later lecture)
+	\item Set (like a list, but no duplicates)
+\end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}
