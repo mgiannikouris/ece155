@@ -6,6 +6,7 @@
 \usepackage{float}
 \usepackage{makecell}
 \usepackage{fancyvrb}
+\usepackage{listings}
 \usepackage[export]{adjustbox}
 \usepackage{caption}
 \title{Lecture 1.2 \\ Engineering Design with Embedded Systems}
@@ -49,10 +50,10 @@
 			\includegraphics[width=6em]{img/appliances.png} &
 			\includegraphics[width=6em]{img/Permanent-Pacemaker.png} &
 			\includegraphics[width=6em]{img/must_diagonaal1.png} \\
-			\tiny{Cellphones} &
-			\tiny{Appliances} &
-			\tiny{Medical Devices} &
-			\tiny{Transportation}
+			\tiny{\textbf{Cellphones}} &
+			\tiny{\textbf{Appliances}} &
+			\tiny{\textbf{Medical Devices}} &
+			\tiny{\textbf{Transportation}}
 		\end{tabular}
 	\end{frame}
 	
@@ -62,16 +63,25 @@
 			\includegraphics[width=6em]{img/creditcards.png} &
 			\includegraphics[width=6em]{img/IMG_0198} &
 			\includegraphics[width=6em]{img/electro_max_eye_720p_video_drone_angle_left} \\
-			\tiny{Watches} &
-			\tiny{Credit Cards} &
-			\tiny{Pets} &
-			\tiny{Toys}
+			\tiny{\textbf{Watches}} &
+			\tiny{\textbf{Credit Cards}} &
+			\tiny{\textbf{Pets}} &
+			\tiny{\textbf{Toys}}
 		\end{tabular}
 		
 		\vspace{3em}	
 		
 		Let's just say that embedded systems are everywhere.
 	\end{frame}
+  
+    \begin{frame}{Two Types of Embedded Systems}
+    \textbf{Embedded Systems} \\
+     Simple: made of electronics, no processor or control software \\ 
+     Complex: has one or more processors along with control software. \\
+     \vspace{1em}
+     \textbf{Embedded Computer Systems} \\
+     A special-purpose computer system designed to perform a set of tasks without the user's knowledge of its existence.
+    \end{frame}  
   
 	% Simple way to visualize an embedded (control) system
 	\begin{frame}{Framework For a Simple Embedded (Control) System}
@@ -104,10 +114,10 @@
   	% Spark control in an ICE
 	\begin{frame}{Example: Spark Control in an Internal Combustion Engine}
 	
-		Problem: We need to generate a spark in the combustion chamber (cylinder) when 
+		\textbf{Problem:} We need to generate a spark in the combustion chamber (cylinder) when 
 				 the piston is at a particular position.
 		
-		Complication: The position where we need to create the spark is not a constant!
+		\textbf{Complication:} The position where we need to create the spark is not a constant!
 					  It changes as a function of (primarily) engine speed and engine load.
 					  
 					  We could get into the whys of this, but this isn't a combustion course.
@@ -338,6 +348,24 @@ Where's the modem in the OnePlus One? \\
 \captionsetup{labelformat=empty,font=scriptsize}
 \caption{http://media.bestofmicro.com/V/9/427509/original/snapdragon-801-soc-image.png}
 \end{figure}
+\end{frame}
+
+\begin{frame}{Embedded Operating Systems: Android}
+
+Example of an \alert{embedded operating system}.\\[1em]
+
+Target: smartphones and tablets.
+\begin{itemize}
+\item Runs Linux under the hood;
+\item Using Java, insulates applications from the hardware;
+\item Is compact and efficient;
+\item Cares about battery life;
+\item Favours portability;
+\item Available under an open-source license (Apache).
+\end{itemize}
+
+We'll learn Android programming in this course.
+
 \end{frame}
 
 \begin{frame}{Embedded Systems and Safety: Therac-25}

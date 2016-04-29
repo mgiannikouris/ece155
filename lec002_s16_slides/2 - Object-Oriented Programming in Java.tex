@@ -165,14 +165,32 @@ protected & Y & Y & Y & N \\
 private & Y & N & N & N \\
 \end{tabular}
 \end{center}
+\textit{no modifier} is not recommended... \\
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Visibility
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Why Consider Visibility?}
+Declaring everything \texttt{public} is very poor programming practice. \\
+\vspace{0.5em}
+In practice, anything \texttt{public} will be used by other programmers. \\ 
+\vspace{0.5em}
+They may come to depend on a particular implementation detail (a problem that Microsoft has in abundance). \\
+\vspace{0.5em}
+Consider carefully if a method or field should be accessible outside of a class. Do you want to be locked into that implementation forever? \\
+\vspace{0.5em}
+If the answer is no, then \texttt{private} is the right answer for the modifier, or \texttt{protected} if it may be used in a subclass. \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Encapsulation (Choosing Good Visibility)
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Encapsulation}
 
 \centering
@@ -209,13 +227,9 @@ public class BankAccount {
 
 \raggedright
 \begin{footnotesize}
-Visibility is very important when designing a class.\\
-\vspace{0.5em}
 For example, we probably don't want users to be able to directly change \textbf{balance}, so we'll make it \textbf{private}. \\
 \vspace{0.5em}
-If we're going to hide \textbf{balance}, we should make a public function to view the balance. In this way, we've made balance \textbf{read-only}. \\
-\vspace{0.5em}
-In general, use the most restrictive access level possible. \\
+If we're going to \textbf{hide} balance, we should make a public function to view the balance. In this way, we've made balance \textbf{read-only}. \\
 \end{footnotesize}
 
 \end{tabular}
@@ -232,10 +246,38 @@ In general, use the most restrictive access level possible. \\
 	\begin{deflist}
 		\item[Inheritance]
 		Classes can \textbf{extend} (build on) other classes.
-		\item[] A "child" class inherits (some of) the data and methods of the "parent" class.	
+		\item[] A "child" class inherits (some of) the data and methods of the "parent" class. This code re-use helps us avoid repetition.
 		\item[] A "child" class can also add new data and methods.
 		\item[] In Java, we usually use the terms \textbf{superclass} and \textbf{subclass}.
 	\end{deflist}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inheritence 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Inheritance}
+Every object in Java eventually descends from \texttt{Object}. \\
+\vspace{1em}
+If you do not specify a specific superclass when you write a class, the superclass will be \texttt{Object}. \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inheritance (more info)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Inheritance}
+Subclassing encodes an "is-a" relationship. \\
+\vspace{1em}
+In Java, we use the keyword \texttt{extends} to allow one class to inherit from another. For example, we may write: \\ 
+\vspace{1em}
+\texttt{class SavingsAccount extends BankAccount \{ ... \}} \\
+\vspace{1em}
+We are saying that \textit{SavingsAccount} is a \textit{BankAccount}. \\
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -380,6 +422,8 @@ There are certainly times where we want classes to take on behaviours or charact
 	\end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Polymorphism (overriding)
@@ -715,8 +759,40 @@ modifiers returnType methodName(param-list) {
   return r;
 }
 \end{verbatim}
+
+When you call a method on an object, you use the \texttt{.} between the object and the method, such as \texttt{t.toString()}. \\
+\vspace{0.5em}
+In Java, convention for method naming is {\tt lowercaseFirstLetter()}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Java Methods
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Calling Semantics for Subclasses}
+On (or inside of) a subclass we can call a method of the parent class. \\
+\vspace{1em}
+Example...BankAccount \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Java Methods
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Calling Semantics for Subclasses}
+Also from within a subclass, we can use an implementation of a method from a parent class with the keyword \texttt{super}. \\
+\vspace{1em}
+The most common situation where this happens is in the constructor. \\
+\vspace{1em}
+Example...BankAccount \\
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 
@@ -735,98 +811,6 @@ modifiers returnType methodName(param-list) {
 \item Switch-Case Statements: {\tt switch (v) \{ case N: \ldots; break; case M: \ldots; break; default: \ldots; break; \} }
 \item For-Each: {\tt for (Type t : c)}
 \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Arrays and Collections
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Arrays \& Collections}
-The simple array is created with the \texttt{[]} square brackets. \\
-\vspace{0.5em}
-Example: \texttt{int[] numbers = new int[10];} \\
-\vspace{0.5em}
-You can have null elements in an array (say, of Strings) without this affecting the array length. \\
-\vspace{0.5em}
-An array is technically an object so you can assign it where a generic \texttt{Object} is expected. \\
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Arrays
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Arrays}
-Multidimensional arrays are also allowed, but only for primitive types \\
-\vspace{0.5em}
-\texttt{int[][][]  coordinates = new int[5][10][2];}.  \\
-\vspace{0.5em}
-This is not a big restriction since you can just have an array of arrays. \\
-\vspace{0.5em}
-Unlike C\# though, you can't specify a rectangular array. \\
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Arrays
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Arrays}
-This is great, but like \texttt{String} an explicit array has a fixed size. \\
-\vspace{0.5em}
-Create a new, bigger one if you needed it and copy all the data to the bigger one...?  \\
-\vspace{0.5em}
-Allocate an array of capacity 999 when we aren't sure how many we'll need? \\
-\vspace{0.5em}
-Wouldn't it be nice if we had a dynamic collection? \\
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Java Collections
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Java Collections}
-In Java, we do, and they're called, \texttt{Collection}s. \\
-\vspace{0.5em}
-The most common one: the \texttt{List}.  \\
-\vspace{0.5em}
-The type List takes a parameter in angle brackets to tell you what this is a list of. \\
-\vspace{0.5em}
-Example: \texttt{List<String>}. \\
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Lists
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Lists}
-Note that you can't call \texttt{new List<String>()} because no constructor exists for just plain \texttt{List}. \\
-\vspace{0.5em}
-Be specific about what kind of list you want to have, such as \texttt{ArrayList} (a very common one) or \texttt{LinkedList}. \\
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Three Basic Collections
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Three Basic Collections}
-Three basic collections exist: \\
-\vspace{0.5em}
-\begin{enumerate}
-	\item List
-	\item Map (in a later lecture)
-	\item Set (like a list, but no duplicates)
-\end{enumerate}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
