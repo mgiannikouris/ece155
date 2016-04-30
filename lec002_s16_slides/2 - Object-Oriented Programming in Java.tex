@@ -504,16 +504,7 @@ Classes aren't any good unless we can use them. \\
 An object is an \textbf{instance} of a class.   \\
 \vspace{0.5em}
 Like variables, we can make as many instances of as many classes as memory allows. \\
-	
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Creating Objects
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{Creating objects}
+\vspace{0.5em}
 We create an object in Java using the \textbf{new} keyword. \\
 \vspace{0.5em}
 \begin{Verbatim}
@@ -602,10 +593,10 @@ If you do not write a constructor, Java will call a default constructor, initial
 % Memory Management
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Memory Management}
-To further "free" you from managing memory, Java uses garbage collection to free up memory that is no longer used. \\
-\vspace{0.5em}
-Java keeps track of objects that are in use. When an object is no longer being referred to, its memory is automatically freed. \\
-\vspace{0.5em}
+To further "free" you from managing memory, Java uses garbage collection to deallocate up memory that is no longer in use. \\
+\vspace{1em}
+Java keeps track of all objects that are in use. When an object is no longer being referred to, its memory is automatically freed. \\
+\vspace{1em}
 The inner workings of garbage collection are beyond this course....just rest easy knowing you don't really have to worry about memory. \\
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -773,9 +764,46 @@ In Java, convention for method naming is {\tt lowercaseFirstLetter()}
 % Java Methods
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Calling Semantics for Subclasses}
-On (or inside of) a subclass we can call a method of the parent class. \\
+Within a method of a subclass, we can call the implementation of that method from the parent class with the keyword \texttt{super}. \\
 \vspace{1em}
-Example...BankAccount \\
+The most common situation where this happens is in the constructor. \\
+\vspace{1em}
+\begin{splitslide}
+
+\begin{Verbatim}[fontsize=\tiny]
+public class BankAccount {
+  protected double balance;
+  
+  // constructor
+  public BankAccount(double opening_balance) {
+    balance = opening_balance;
+  }
+    
+  .
+  .
+  .
+}
+\end{Verbatim}
+
+&&
+
+\begin{Verbatim}[fontsize=\tiny]
+class SavingsAccount extends BankAccount {
+  private double interest_rate = 0.008;
+  
+  // constructor for subclass
+  public SavingsAccount(double amount) {
+    super(amount);  
+  }
+  
+  .
+  .
+  .
+}
+\end{Verbatim}
+
+\end{splitslide}
+
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -785,14 +813,16 @@ Example...BankAccount \\
 % Java Methods
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Calling Semantics for Subclasses}
-Also from within a subclass, we can use an implementation of a method from a parent class with the keyword \texttt{super}. \\
+On (or inside of) a subclass we can call a method of the superclass. \\
 \vspace{1em}
-The most common situation where this happens is in the constructor. \\
+\begin{Verbatim}
+SavingsAccount savings = new SavingsAccount(100.00);
+savings.withdraw(50.00);
+\end{Verbatim}
 \vspace{1em}
-Example...BankAccount \\
+\texttt{withdraw()} is not defined in the subclass \texttt{SavingsAccount}. However it is a member of the superclass \texttt{BankAccount}, and so we can call it from any instance of the subclass.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 
 
