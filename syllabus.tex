@@ -15,6 +15,7 @@
 \usepackage[default]{droidserif}
 \usepackage[T1]{fontenc}
 \usepackage{tikz}
+\usepackage{float}
 \usetikzlibrary{arrows,automata,shapes,matrix,chains,scopes,positioning,calc}
 \tikzstyle{block} = [rectangle, draw, fill=blue!20, 
     text width=2.5em, text centered, rounded corners, minimum height=2em]
@@ -116,15 +117,25 @@ We must use three of these dates to fit in all of the required lecture hours. Th
 
 \textit{Lab Dates}:
 
-\textit{LAB204}: May 4, May 18, June 1, June 15, June 29, July 13 \\
-\textit{LAB205}: May 5, May 19, June 2, June 16, June 30, July 14 \\
-\textit{LAB206}: May 3, May 17, May 31, June 14, June 28, July 12 
+\begin{center}	
+	\begin{tabular}{l|l l l l l l}
+		 & \textbf{Lab 0} & \textbf{Lab 1} & \textbf{Lab 2} & \textbf{Lab 3} & \textbf{Lab 4 (1)} & \textbf{Lab 4 (2)} 		\\
+		 \hline
+		\textbf{LAB204} & May 4 & May 18 & June 1 & June 15 & June 29 & July 13 	\\
+		\hline
+		\textbf{LAB205} & May 5 & May 19 & June 2 & June 16 & June 30 & July 14	\\
+		\hline
+		\textbf{LAB206} & May 3 & May 17 & May 31 & June 14 & June 28 & July 12  \\
+	\end{tabular}	
+	\end{center}
+
+\newpage
 
 \textit{Lab Submission Dates}:
 
 Please note the following submission due dates for the labs (all times are Eastern Daylight Savings Time). To receive a grade your lab submission, the SVN server must show that your code was submitted by the date/time shown below. \\
 
-\begin{table}[h]
+\begin{table}[H]
         \begin{center}
         \begin{tabular}{l|l|l|l|l}
         	\textbf{Section} & \textbf{Lab 1} & \textbf{Lab 2} & \textbf{Lab 3} & \textbf{Lab 4} \\

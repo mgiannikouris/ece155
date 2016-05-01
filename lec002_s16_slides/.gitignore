@@ -8,4 +8,5 @@
 *.blg
 *.vrb
 *.gz
+*.synctex.gz
 *.dvi

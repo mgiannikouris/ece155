@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 \usetheme{metropolis}           % Use metropolis theme
 \metroset{numbering=fraction}
 \usepackage{tikz}
@@ -9,7 +9,7 @@
 \usepackage{listings}
 \usepackage[export]{adjustbox}
 \usepackage{caption}
-\title{Lecture 1.2 \\ Engineering Design with Embedded Systems}
+\title{Lecture 1.2 \\ Introduction to Embedded Systems}
 \date{\today}
 \author{Patrick Lam \\ Jeff Zarnett \\ Michael Giannikouris}
 \institute{Department of Electrical and Computer Engineering}
@@ -22,7 +22,9 @@
 
 \section{Introduction to Embedded Systems}
 	
-	%Definition
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Definition of Embedded Ssystem (IEEE)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{frame}{Definition}
 
 		\begin{center}
@@ -43,48 +45,71 @@
 		\end{flushright}	
 		
 	\end{frame}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Where Can You Find Embedded Systems?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{frame}{Where Can You Find Embedded Systems?}
+	\centering
 		\begin{tabular}{c c c c}		
-			\includegraphics[width=6em]{img/phone-icon-android-phone.png} &
-			\includegraphics[width=6em]{img/appliances.png} &
-			\includegraphics[width=6em]{img/Permanent-Pacemaker.png} &
-			\includegraphics[width=6em]{img/must_diagonaal1.png} \\
+			\includegraphics[width=8em]{img/phone-icon-android-phone.png} &
+			\includegraphics[width=8em]{img/appliances.png} &
+			\includegraphics[width=8em]{img/Permanent-Pacemaker.png} &
+			\includegraphics[width=8em]{img/must_diagonaal1.png} \\
 			\tiny{\textbf{Cellphones}} &
 			\tiny{\textbf{Appliances}} &
 			\tiny{\textbf{Medical Devices}} &
 			\tiny{\textbf{Transportation}}
 		\end{tabular}
 	\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
+
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Where Can You Find Embedded Systems?
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	\begin{frame}{Where Can You Find Embedded Systems?}
+	\centering
 		\begin{tabular}{c c c c}		
-			\includegraphics[width=6em]{img/Motorola_Moto_360_Minimal_Watch_Face.png} &
-			\includegraphics[width=6em]{img/creditcards.png} &
-			\includegraphics[width=6em]{img/IMG_0198} &
-			\includegraphics[width=6em]{img/electro_max_eye_720p_video_drone_angle_left} \\
+			\includegraphics[width=8em]{img/Motorola_Moto_360_Minimal_Watch_Face.png} &
+			\includegraphics[width=8em]{img/creditcards.png} &
+			\includegraphics[width=8em]{img/IMG_0198} &
+			\includegraphics[width=8em]{img/electro_max_eye_720p_video_drone_angle_left} \\
 			\tiny{\textbf{Watches}} &
 			\tiny{\textbf{Credit Cards}} &
 			\tiny{\textbf{Pets}} &
 			\tiny{\textbf{Toys}}
 		\end{tabular}
-		
-		\vspace{3em}	
+		\newline		
 		
 		Let's just say that embedded systems are everywhere.
 	\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Two Types of Embedded Systems
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Two Types of Embedded Systems}
+\textbf{Embedded Systems} \\
+\textit{Simple:} made of electronics, no processor or control software. \\ 
+\textit{Complex:} has one or more processors along with control software. \\
+\vspace{2em}
+\textbf{Embedded Computer Systems} \\
+A special-purpose computer system designed to perform a set of tasks without the user's knowledge of its existence.
+\end{frame}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	  
   
-    \begin{frame}{Two Types of Embedded Systems}
-    \textbf{Embedded Systems} \\
-     Simple: made of electronics, no processor or control software \\ 
-     Complex: has one or more processors along with control software. \\
-     \vspace{1em}
-     \textbf{Embedded Computer Systems} \\
-     A special-purpose computer system designed to perform a set of tasks without the user's knowledge of its existence.
-    \end{frame}  
   
-	% Simple way to visualize an embedded (control) system
-	\begin{frame}{Framework For a Simple Embedded (Control) System}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Simple Embedded System Diagram
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\begin{frame}{Framework For a Simple Embedded System}
 	\begin{center}		
 		\begin{tikzpicture}[auto, node distance=2cm,>=latex']
 			\tikzset{block/.style= {draw, rectangle, align=center,minimum width=2cm,minimum height=1cm},
@@ -102,49 +127,70 @@
 
 			\node [block](sensors) {Sensors};
 			\node [block, right=1cm of sensors] (processing) {Processing};
+			\node [block, above=1cm of processing] (memory) {Memory};
+			\node [block, below=1cm of processing] (network) {Network};
 			\node [block, right=1cm of processing] (actuators) {Actuators};
 			
 			\path[draw,->] (sensors) edge (processing);
 			\path[draw,->] (processing) edge (actuators);
+			\path[draw,->] (processing) edge (memory);
+			\path[draw,->] (processing) edge (network);
 
 		\end{tikzpicture}
 	\end{center}	
 	\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+	
+	
   
-  	% Spark control in an ICE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Spark Control in an ICE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{frame}{Example: Spark Control in an Internal Combustion Engine}
-	
-		\textbf{Problem:} We need to generate a spark in the combustion chamber (cylinder) when 
-				 the piston is at a particular position.
-		
-		\textbf{Complication:} The position where we need to create the spark is not a constant!
-					  It changes as a function of (primarily) engine speed and engine load.
-					  
-					  We could get into the whys of this, but this isn't a combustion course.
-	
+	\vspace{1em}
+	\begin{columns}
+	\begin{column}{0.6\textwidth}
+	\includegraphics[width=0.95\textwidth,keepaspectratio]{img/LeanAdvance.png}
+	\end{column}
+	\begin{column}{0.4\textwidth}
+	\textbf{Problem:} We need to generate a spark when the piston is at a particular position. \\
+	\vspace{1em}
+	\textbf{Complication:} The spark position is not a constant! It changes as a function of engine speed and engine load.
+	\end{column}
+	\end{columns}
+	\vspace{1em}
+	\begin{footnotesize}http://www.preludepower.com/forums/showthread.php?t=252042\end{footnotesize}
 	\end{frame}	  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
   
-	% distributor cap
-	\begin{frame}[t]{Example: Spark Control in an Internal Combustion Engine}
-		
-		Back in the (dark) days of purely mechanical systems...
-			
-		\begin{figure}
-		\includegraphics[scale=0.75]{img/3-8-ignition_clip_image005.jpg}
-		\caption{http://www.scuderiatopolino.com/3-8-ignition.php}
-		\end{figure}
-		\href{https://www.youtube.com/watch?v=RcmkbQVPz9E}{Mechanical Spark Advance In Action}
-		
-	\end{frame}
-	
+  
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Spark Control in an ICE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[t]{Example: Spark Control in an Internal Combustion Engine}
+Back in the (dark) days of purely mechanical systems, we have the distributor.
+\begin{figure}
+\includegraphics[scale=0.70]{img/3-8-ignition_clip_image005.jpg}
+\caption{http://www.scuderiatopolino.com/3-8-ignition.php}
+\end{figure}
+\href{https://www.youtube.com/watch?v=RcmkbQVPz9E}{Mechanical Spark Advance In Action}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Spark Control in an ICE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{frame}{Example: Spark Control in an Internal Combustion Engine}
-	
-		Today, we use a simple embedded control system: 
-				
+		Today, we use a simple embedded control system:
+		\vspace{2em}		
+		\begin{columns}
+		\begin{column}{0.45\textwidth}		
 		{\bf Inputs (Sensors):}
 		\begin{itemize}
-			\item Crankshaft position
-			\item Crankshaft speed
+			\item Crankshaft position / speed
 			\item Throttle position
 		\end{itemize}
 		
@@ -158,9 +204,40 @@
 		\begin{itemize}
 			\item Signal to close spark contact
 		\end{itemize}
-	
+		\end{column}
+		\begin{column}{0.5\textwidth}
+		\includegraphics[width=1.0\textwidth]{img/CKP_Sensor_Waveforms.png}
+		\end{column}
+		\end{columns}	
+		\begin{flushright}
+		\begin{tiny}https://nwmobilemechanicdotcom.wordpress.com/2012/11/28/the-hall-effect-crankshaft-sensor/\end{tiny}
+		\end{flushright}
 	\end{frame}
-	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Embedded Systems Challenges
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Challenges in Designing and Programming Embedded Systems}
+Designers of embedded computer systems face some challenges: \\
+\begin{itemize}
+\item Limited processing power and memory
+\item Harsh operating environment
+\item Hardware and platform variability
+\item Limited or non-existent user interface
+\item Minimal or non-existent operating system and APIs
+\item Hard to access, service, and upgrade once they are deployed
+\end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inside a Smartphone
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{frame}{Inside a Smartphone}
 		
 		Since we're going to be using Android in this course, let's take a brief look
@@ -171,10 +248,16 @@
 		\vspace{1em}		
 		
 		\centering
-		\includegraphics[width=\textwidth,height=6cm,keepaspectratio]{img/WJweKyYej2qtrc4m.png}
+		\includegraphics[width=\textwidth,height=5cm,keepaspectratio]{img/WJweKyYej2qtrc4m.png}
 			
 	\end{frame}
-	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inside a Smartphone
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	\begin{frame}{Inside a Smartphone}
 		We have two cameras (sensors) sitting at the top of the phone.
 		\begin{figure}[b]		
@@ -182,23 +265,53 @@
 		\includegraphics[width=\textwidth,height=6cm,keepaspectratio]{img/SuhLygXH4QXdDMEm.png}
 		\end{figure}
 	\end{frame}
-  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inside a Smartphone
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{frame}{Inside a Smartphone}
-		The motherboard is crammed full of embedded components...
-		\begin{figure}[b]
+		\begin{flushleft}The motherboard is crammed full of embedded components...\end{flushleft}
+		\begin{columns}
+		\begin{column}{0.55\textwidth}	
 		\centering
-		\includegraphics[width=\textwidth,height=6cm,keepaspectratio]{img/wIp5pQj4movpelpR.png}
-		\end{figure}
+		\includegraphics[width=1.0\textwidth,keepaspectratio]{img/wIp5pQj4movpelpR_cut.png}	
+		\end{column}
+		\begin{column}{0.45\textwidth}
+		\centering		
+		\includegraphics[width=0.95\textwidth,height=0.75\textheight,keepaspectratio]{img/oneplus_1.png}
+		\end{column}
+		\end{columns}
 	\end{frame}  
-	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inside a Smartphone
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{frame}{Inside a Smartphone}
-		...on both sides
-		\begin{figure}[b]
+		\begin{flushleft}...on both sides\end{flushleft}
+		\begin{columns}
+		\begin{column}{0.55\textwidth}	
 		\centering
-		\includegraphics[width=\textwidth,height=6cm,keepaspectratio]{img/FGcUA3hpq1ejhOQL.png}
-		\end{figure}
-	\end{frame}
-  
+		\includegraphics[width=1.0\textwidth,keepaspectratio]{img/FGcUA3hpq1ejhOQL_cut.png}	
+		\end{column}
+		\begin{column}{0.45\textwidth}
+		\centering		
+		\includegraphics[width=0.95\textwidth,height=0.75\textheight,keepaspectratio]{img/oneplus_2.png}
+		\end{column}
+		\end{columns}
+	\end{frame}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inside a Smartphone
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{frame}{Inside a Smartphone}
 		The daughter-board at the bottom contains some actuators.
 		\begin{figure}[b]
@@ -206,7 +319,13 @@
 		\includegraphics[width=\textwidth,height=6cm,keepaspectratio]{img/wdnGHA1UB3lBpZIL.png}
 		\end{figure}
 	\end{frame}    
-	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inside a Smartphone
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\begin{frame}[t]{About Sensors}
 		\small Sensors measure real-world phenomena and convert them into signals that we can process.	\\
 		\vspace{0.5em}
@@ -219,41 +338,41 @@
 		\vspace{2em}		
 		What to do? \\
 	\end{frame}
-	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% About Sensors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{About Sensors}
 \small{To convert an analog signal (e.g. voltage) to a digital value, we use an {\bf Analog-To-Digital Converter (ADC).}}	\\
 \vspace{0.5em}
 \begin{figure}[b]
 \centering
-\includegraphics[width=\textwidth,height=6cm,keepaspectratio]{img/wIp5pQj4movpelpR.png}
+\includegraphics[width=\textwidth,height=4cm,keepaspectratio]{img/wcd9320_2.png}
+
+\vspace{0.5em}
+\begin{footnotesize}Qualcomm WCD9320 Audio CODEC from the OnePlus One\end{footnotesize}
 \end{figure}
 \end{frame}	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 	
+	
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% About Sensors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{About Sensors}
 \small To handle a continuous-time signal, we "sample" the signal at discrete times.	\\
-\vspace{0.5em}
-\begin{tabular}{@{}m{0.6\textwidth} m{0.4\textwidth}@{}}
+\begin{tabular}{@{}m{0.5\textwidth} m{0.5\textwidth}@{}}
 \begin{figure}
-\centering
-\includegraphics[width=0.6\textwidth,height=0.6\textheight,keepaspectratio]{img/sine-points.png}
+\includegraphics[height=0.65\textheight,keepaspectratio]{img/sine-points.png}
 \end{figure}
+
 &
-\begin{Verbatim}[fontsize=\scriptsize]
-while(true)
-{
-  int y = sensor.read();
-  int x = now();
-  sleep(0.2);
-}		
-\end{Verbatim}	
-\end{tabular}
-\vspace{0.5em}
-e.g. (0, 0), (0.2, 0.12), (0.4, 0.38), (0.6, 0.57), (0.8, 0.47)	\\	
-\end{frame}
-  
-\begin{frame}{ADC Output}
-We lose information if samples too infrequent\footnote{Nyquist sampling theorem.}, or if sample resolution too poor.
-\begin{center}
+
+\centering
 \begin{tabular}{r|r}
 Time (ms) & Signal (V) \\ \hline
 0.0 & 0.00 \\
@@ -262,31 +381,51 @@ Time (ms) & Signal (V) \\ \hline
 0.6 & 0.57 \\
 0.8 & 0.47 \\
 \end{tabular}
-\end{center}
-~\\[1em]
-How would we increase sample frequency? Sample resolution?
-\end{frame}  
- 
+\end{tabular}
+We lose information if samples too infrequent\footnote{Nyquist sampling theorem.}, or if sample resolution too poor. \\
+\vspace{1em}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% About Actuators
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{About Actuators}
 Actuators take signals from our embedded system and convert them into physical phenomena. \\
-\vspace{5em}
-What if our actuator requires an analog signal? We use a {\bf Digital-to-Analog Converter (DAC)}.
+\includegraphics[scale=0.12,keepaspectratio,center]{img/2000px-LED_symbol.svg.png}
+\begin{center}\begin{footnotesize}LEDs, the simplest of embedded actuators\end{footnotesize}\end{center} 
+\vspace{2em}
+What if our actuator requires an analog signal? We use a \textbf{Digital-to-Analog Converter (DAC)}. The audio CODEC we looked at has a DAC as well as an ADC.
 \end{frame}  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
   
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% About Processing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
 \begin{frame}[t]{Processing}
 \small
-Embedded systems cover a wide range of complexity, and it's common to have multiple systems working together. \\
+Programming an embedded system is somewhat different that a general-purpose computer. \\
 \vspace{1em}
 \begin{figure}
 \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio,left]{img/Galaxy_Logic_Board_Edited_2_small_annotated.png}
 \captionsetup{justification=raggedright,singlelinecheck=false,labelformat=empty}
 \caption{Samsung Galaxy S motherboard}
 \end{figure}
-\end{frame}  
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Processing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}[t]{Processing}
 \small
-Embedded systems cover a wide range of complexity, and it's common to have multiple systems working together. \\
+Programming an embedded system is somewhat different that a general-purpose computer. \\
 \vspace{1em}
 \begin{figure}
 \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio,left]{img/Galaxy_Logic_Board_Edited_2_small_annotated_highlight_modem.png}
@@ -294,22 +433,32 @@ Embedded systems cover a wide range of complexity, and it's common to have multi
 \caption{Samsung Galaxy S motherboard}
 \end{figure}
 \end{frame} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Processing
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
 \begin{frame}[t]{Processing}
 \small
-Embedded systems cover a wide range of complexity, and it's common to have multiple systems working together. \\
+Programming an embedded system is somewhat different that a general-purpose computer. \\
 \vspace{1em}
 \begin{figure}
 \includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio,left]{img/Galaxy_Logic_Board_Edited_2_small_annotated_highlight_modem.png}
 \captionsetup{justification=raggedright,singlelinecheck=false,labelformat=empty}
 \caption{Samsung Galaxy S motherboard}
 \end{figure}
-\putat{110}{95}{\includegraphics[scale=0.32]{img/modem-interaction.png}}
+\putat{190}{60}{\includegraphics[scale=0.35]{img/modem-interaction.png}}
 \end{frame} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}
-\frametitle{Running an Embedded Control Program}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Embedded Control Program
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+\begin{frame}{Running an Embedded Control Program}
 The modem is running an \alert{embedded control program}.
 \begin{itemize}
 \item accepts high-level commands from the CPU;
@@ -324,7 +473,13 @@ The modem is running an \alert{embedded control program}.
 \item cares about timing.
 \end{itemize}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OnePlus One Modem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{What about the OnePlus One?}
 Where's the modem in the OnePlus One? \\
 \begin{figure}[b]
@@ -332,7 +487,13 @@ Where's the modem in the OnePlus One? \\
 \includegraphics[width=\textwidth,height=6cm,keepaspectratio]{img/wIp5pQj4movpelpR.png}
 \end{figure}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OnePlus One Modem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{What about the OnePlus One?}
 Where's the modem in the OnePlus One? \\
 \begin{figure}[b]
@@ -340,7 +501,13 @@ Where's the modem in the OnePlus One? \\
 \includegraphics[width=\textwidth,height=6cm,keepaspectratio]{img/wIp5pQj4movpelpR_snappy.png}
 \end{figure}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OnePlus One Modem
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{What about the OnePlus One?}
 \begin{figure}[b]
 \centering
@@ -349,11 +516,15 @@ Where's the modem in the OnePlus One? \\
 \caption{http://media.bestofmicro.com/V/9/427509/original/snapdragon-801-soc-image.png}
 \end{figure}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Android
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Embedded Operating Systems: Android}
-
-Example of an \alert{embedded operating system}.\\[1em]
-
+Android is an example of an \alert{embedded operating system}.\\[1em]
 Target: smartphones and tablets.
 \begin{itemize}
 \item Runs Linux under the hood;
@@ -363,16 +534,28 @@ Target: smartphones and tablets.
 \item Favours portability;
 \item Available under an open-source license (Apache).
 \end{itemize}
-
 We'll learn Android programming in this course.
-
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Therac-25
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Embedded Systems and Safety: Therac-25}
 \centering
-\includegraphics[width=0.8\linewidth]{img/Xraybad.jpg}
+\includegraphics[width=0.65\linewidth,keepaspectratio]{img/Therac25.png}
+\vspace{0.25em}
+\begin{footnotesize}http://radonc.wikidot.com/local--files/radiation-accident-therac25/Therac25.png\end{footnotesize}
 \end{frame} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Therac-25
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Embedded Systems and Safety: Therac-25}
   \begin{itemize}
   \item Radiation therapy machine
@@ -383,7 +566,7 @@ We'll learn Android programming in this course.
   \end{itemize}
 
   \note[item]{\textbf{Problem Race Condition:} Race condition between
-    the operator interface task ad the equipment control
+    the operator interface task and the equipment control
     task. Occurred only during quick controlling \textbf{(operator
       practice)}.}
 
@@ -393,7 +576,13 @@ We'll learn Android programming in this course.
   \note[item]{\textbf{Problem Interlocks:} high-energy mode was
     enabled without target in place.}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Conclusion
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}[c]
   \frametitle{Conclusion}
   \textbf{\Large Someone has to build these systems!} \\
@@ -410,5 +599,6 @@ We'll learn Android programming in this course.
    \item Undergraduate research assistant
    \end{itemize}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \end{document}

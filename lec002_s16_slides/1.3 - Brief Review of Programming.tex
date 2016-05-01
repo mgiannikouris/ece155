@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[aspectratio=169]{beamer}
 \usetheme{metropolis}           % Use metropolis theme
 \metroset{numbering=fraction}
 \usepackage{tikz}
@@ -23,6 +23,7 @@
   
 \begin{frame}{Programming Paradigms}
 	\begin{description}
+	\setlength\itemsep{1em}
 		\item[Imperative]		
 		Programs are a set of instructions that change the state of the program. Think assembly language.
 		
@@ -44,6 +45,7 @@
 \begin{frame}{Programming Paradigms}
 
 	\begin{description}
+	\setlength\itemsep{1em}
 		\item[Object-Oriented (OOP)]
 		Program is organized into a set of objects. An object represents a single "thing". Objects contains both data and methods that pertain to that thing. Multiple objects interact to execute the program.
 		
@@ -55,9 +57,6 @@
 \section{Procedural vs. Object-Oriented Programming}
 
 \begin{frame}[fragile]{Procedural vs. Object-Oriented Programming}
-
-To illustrate the differences, calculate the area of a circle both ways.
-
 \centering
 \begin{tabular}{@{}m{0.5\textwidth} | m{0.5\textwidth}@{}}
 C					&					Java	\\
@@ -89,9 +88,6 @@ int main(void) {
 \end{frame}
 
 \begin{frame}[fragile]{Procedural vs. Object-Oriented Programming}
-
-To illustrate the differences, calculate the area of a circle both ways.
-
 \centering
 \begin{tabular}{@{}m{0.5\textwidth} | m{0.5\textwidth}@{}}
 C					&					Java	\\
@@ -127,9 +123,6 @@ int main(void) {
 \end{frame}
 
 \begin{frame}[fragile]{Procedural vs. Object-Oriented Programming}
-
-To illustrate the differences, calculate the area of a circle both ways.
-
 \centering
 \begin{tabular}{@{}m{0.5\textwidth} | m{0.5\textwidth}@{}}
 C					&					Java	\\
