@@ -246,17 +246,6 @@ If we're going to \textbf{hide} balance, we should make a public function to vie
 
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Inheritence 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Inheritance}
-Every object in Java eventually descends from \texttt{Object}. \\
-\vspace{1em}
-If you do not specify a specific superclass when you write a class, the superclass will be \texttt{Object}. \\
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Inheritance (more info)
@@ -325,6 +314,18 @@ class SavingsAccount extends BankAccount {
 Anyone notice a slight change in \textbf{BankAccount}?
 
 \end{splitslide}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Inheritence 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Inheritance}
+Every object in Java eventually descends from \texttt{Object}. \\
+\vspace{1em}
+If you do not specify a specific superclass when you write a class, the superclass will be \texttt{Object}. \\
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -645,40 +646,6 @@ Note that in addition to their normal values, the floating point types have some
 \end{itemize}
 \vspace{1em}
 These special values result from operations that go out of range or make no mathematical sense. \\
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Strings
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Strings}
-\texttt{String} is a \textbf{class} (reference to a character array), \textbf{not} a primitive. \\
-\vspace{0.5em}
-\texttt{String} is \textbf{immutable}. Once created, a \texttt{String} cannot change. \\
-\vspace{0.5em}
-If you call a \texttt{String} method that modifies the string, a new \texttt{String} object is returned (the existing one does not change):\\
-\vspace{1em}
-
-\texttt{String string1 = "Hello World!";} \\
-\texttt{String string2 = string1.replaceAll('?', '!')}, \\
-\vspace{1em}
-
-string1 still contains "Hello World!" \\
-string2 contains "Hello World?"
-
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Strings
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Strings and the == Operator}
-The equality operator \texttt{==} can behave strangely when used on \texttt{String}. \\
-\vspace{1em}
-Use the \texttt{equals} method: \\
-\texttt{if(string1.equals(string2)) \{ ... \} }
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
